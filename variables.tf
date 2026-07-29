@@ -8,3 +8,7 @@ variable "name_prefix" {
   type        = string
   default     = "defaultnameprefix"  
 }
+variable "notification_email" {
+  description = "Email address to recieve SNS notfications"
+  type        = string 
+}
