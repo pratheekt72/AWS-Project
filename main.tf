@@ -15,7 +15,9 @@ provider "aws" {
 }
 
 resource "aws_sns_topic" "notifications" {
-  name = "resource-accountability-notifications"
+  topic_arn = aws_sns_topic.notifications.arn
+  protocol = "email"
+  endpoint = "your-email@example.com"
 }
  
 output "sns_topic_arn" {
