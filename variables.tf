@@ -6,9 +6,9 @@ variable "aws_region" {
 variable "name_prefix" {
   description = "Prefix on every resource name so teammates don't collide in the shared account."
   type        = string
-  default     = "defaultnameprefix"  
+  default     = "defaultnameprefix"
 }
 variable "notification_email" {
   description = "Email address to recieve SNS notfications"
-  type        = string 
+  type        = string
 }
