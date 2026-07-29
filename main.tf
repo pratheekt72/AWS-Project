@@ -2,7 +2,7 @@
 
  
 provider "aws" {
-  region = "us-east-1"
+  region = var.aws_region
 }
 
 resource "aws_sns_topic" "notifications" {
