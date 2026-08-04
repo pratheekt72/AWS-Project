@@ -17,9 +17,9 @@ resource "aws_lambda_function" "registration" {
   source_code_hash = data.archive_file.registration_lambda.output_base64sha256
 
   environment {
-    variables = {
-      SNS_TOPIC_ARN = aws_sns_topic.notifications.arn
-      LOG_LEVEL     = "INFO"
-    }
+  variables = {
+    SNS_TOPIC_ARN       = aws_sns_topic.notifications.arn
+    DYNAMODB_TABLE_NAME = "resource-metadataT4"
+    LOG_LEVEL           = "INFO"
   }
 }

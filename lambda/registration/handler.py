@@ -30,8 +30,12 @@ logger = logging.getLogger()
 logger.setLevel(LOG_LEVEL)
  
 sns = boto3.client("sns")
- 
+dynamodb = boto3.resource("dynamodb")
+
 SNS_TOPIC_ARN = os.environ["SNS_TOPIC_ARN"]
+DYNAMODB_TABLE_NAME = os.environ["DYNAMODB_TABLE_NAME"]
+
+table = dynamodb.Table(DYNAMODB_TABLE_NAME)
  
 # Maps a CloudTrail eventName to (resource_type, extractor function name).
 # Adding a resource type for T23/T24 means adding a row here and adding the
@@ -231,10 +235,12 @@ def lambda_handler(event, context):
         for rid in resource_ids
     ]
  
-    for record in records:
-        logger.info("Ownership record: %s", json.dumps(record))
-        # T14: dynamodb.put_item(TableName=..., Item=to_dynamo(record))
- 
+   for record in records:
+    logger.info("Ownership record: %s", json.dumps(record))
+
+    table.put_item(Item=record)
+
+    logger.info("Saved %s to DynamoDB.", record["resource_id"])
     subject = f"[Resource Registered] {len(records)} x {resource_type.split('::')[-1]}"
  
     sns.publish(
