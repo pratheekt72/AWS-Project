@@ -19,7 +19,7 @@ resource "aws_lambda_function" "registration" {
   environment {
   variables = {
     SNS_TOPIC_ARN       = aws_sns_topic.notifications.arn
-    DYNAMODB_TABLE_NAME = "resource-metadataT4"
+    DYNAMODB_TABLE_NAME = aws_dynamodb_table.resource_metadata.name
     LOG_LEVEL           = "INFO"
   }
 }

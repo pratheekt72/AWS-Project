@@ -34,3 +34,17 @@ resource "aws_iam_role_policy" "lambda_sns" {
     }]
   })
 }
+# Let Lambda save records to DynamoDB
+resource "aws_iam_role_policy" "lambda_dynamodb" {
+  name = "${var.name_prefix}-lambda-dynamodb"
+  role = aws_iam_role.lambda_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = "dynamodb:PutItem"
+      Resource = aws_dynamodb_table.resource_metadata.arn
+    }]
+  })
+}
