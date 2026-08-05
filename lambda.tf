@@ -23,3 +23,5 @@ resource "aws_lambda_function" "registration" {
     LOG_LEVEL           = "INFO"
   }
 }
+
+}
