@@ -7,7 +7,7 @@ data "archive_file" "registration_lambda" {
 
 # Create the Lambda function
 resource "aws_lambda_function" "registration" {
-  function_name = "${var.name_prefix}-registration-lambda"
+  function_name = "group4-registration-lambda"
   role          = aws_iam_role.lambda_role.arn
 
   runtime = "python3.12"
